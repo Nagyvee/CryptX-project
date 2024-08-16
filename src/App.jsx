@@ -1,10 +1,11 @@
 import './App.css'
+import  Home from './Pages/Home'
 
 function App() {
 
   return (
     <>
-    <h1>CyptX Project </h1>
+    <Home />
     </>
   )
 }
