@@ -96,6 +96,7 @@ const NavItem = styled.li`
 
   &:hover {
     color: #5a67d8;
+    transform: scale(1.01);
   }
   }
 

@@ -5,7 +5,7 @@ import { FiBell, FiHelpCircle, FiChevronDown, FiSearch } from "react-icons/fi";
 const NavContainer = styled.nav`
   width: 100%;
   height: 4.5rem;
-  padding: 2rem 0.5rem 2rem 1rem;
+  padding: 2rem 1.5rem 2rem 1rem;
   margin: 0;
   display: flex;
   justify-content: space-between;
@@ -17,7 +17,13 @@ const NavContainer = styled.nav`
 
   svg {
     cursor: pointer;
-    color: #777s;
+    color: #777;
+
+    &:hover{
+    border-radius: 50%;
+    background-color: #f4f4f4;
+    transform: scale(1.2);
+    }
   }
 `;
 

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import BottomSection from './BottomSection'
 
 const Section = styled.section`
   display: flex;
@@ -12,7 +13,7 @@ const Section = styled.section`
 const MainSection = () => {
   return (
     <Section>
-      <h1>Hey There.....</h1>
+      <BottomSection />
     </Section>
   );
 };
