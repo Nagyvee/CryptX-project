@@ -4,12 +4,13 @@ import LitecoinIcon from '../assets/litecoin-icon.svg';
 import EthereumIcon from '../assets/Ethereum-icon.svg';
 import CardanoIcon from '../assets/cardano-icon.svg';
 import {AiFillCaretUp, AiFillCaretDown} from 'react-icons/ai'
+import Chart from './Chart';
 
 const Container = styled.section`
   display: grid;
   grid-template-columns: 50% 50%;
   gap: 1rem;
-  padding: .7rem 4rem 0 1rem;
+  padding: 0 4rem 0 1rem;
 `;
 
 const LeftWrap = styled.div`
@@ -120,7 +121,7 @@ const TopSection = () =>{
                 }
             </LeftWrap>
             <RightWrap>
-                <h2>This is a chart position</h2>
+                <Chart />
             </RightWrap>
         </Container>
     )
