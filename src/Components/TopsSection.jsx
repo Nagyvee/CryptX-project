@@ -1,10 +1,13 @@
-import styled from 'styled-components';
-import BitcoinIcon from '../assets/Bitcoin-icon.svg';
-import LitecoinIcon from '../assets/litecoin-icon.svg';
-import EthereumIcon from '../assets/Ethereum-icon.svg';
-import CardanoIcon from '../assets/cardano-icon.svg';
-import {AiFillCaretUp, AiFillCaretDown} from 'react-icons/ai'
-import Chart from './Chart';
+import styled from "styled-components";
+import BitcoinIcon from "../assets/Bitcoin-icon.svg";
+import LitecoinIcon from "../assets/litecoin-icon.svg";
+import EthereumIcon from "../assets/Ethereum-icon.svg";
+import CardanoIcon from "../assets/cardano-icon.svg";
+import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
+import { FaSpinner } from "react-icons/fa";
+import Chart from "./Chart";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Container = styled.section`
   display: grid;
@@ -14,117 +17,193 @@ const Container = styled.section`
 `;
 
 const LeftWrap = styled.div`
-display: grid;
-grid-template-columns: 50% 50%;
-gap: 1rem;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: 1rem;
 `;
 
 const Card = styled.div`
-box-shadow: 0 0.5px 10px #a1a1a1;
-width: fit-content;
-min-width: 250px;
-cursor: pointer;
-padding:.75rem 1.6rem;
-border-radius: 15px;
-transition: transform .3s;
+  box-shadow: 0 0.5px 10px #a1a1a1;
+  width: fit-content;
+  min-width: 250px;
+  cursor: pointer;
+  padding: 0.75rem 1.6rem;
+  border-radius: 15px;
+  transition: transform 0.3s;
 
-&:hover{
-transform: scale(1.02);
-}
+  &:hover {
+    transform: scale(1.02);
+  }
 
-h3{
-font-size: 1.1rem;
-}
-`
+  h3 {
+    font-size: 1.1rem;
+  }
+`;
 const Icons = styled.div`
-display: flex;
-justify-content: space-between;
-margin:0;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
 
-div{
-display: flex;
-align-items: canter;
-gap: .35rem;
-color: ${({color})=> color};
-font-size: .9rem;
-font-weight: 500;
+  div {
+    display: flex;
+    align-items: canter;
+    gap: 0.35rem;
+    color: ${({ color }) => color};
+    font-size: 0.9rem;
+    font-weight: 500;
 
-svg{
-margin-top: .2rem;
-}
-}
-` 
+    svg {
+      margin-top: 0.2rem;
+    }
+  }
+`;
 
 const Image = styled.img`
- width: 40px;
- height: 40px;
- margin:0 0 .7rem;
-`
+  width: 40px;
+  height: 40px;
+  margin: 0 0 0.7rem;
+`;
 
 const Text = styled.p`
-font-size: .85rem;
-margin-top: 0.35rem;
-color: #b1b1b1;
-`
+  font-size: 0.85rem;
+  margin-top: 0.35rem;
+  color: #b1b1b1;
+`;
 
 const RightWrap = styled.div`
-box-shadow: 0 0.5px 10px #a1a1a1;
-border-radius: 15px;
-padding: 1rem;
-`
+  box-shadow: 0 0.5px 10px #a1a1a1;
+  border-radius: 15px;
+  padding: 1rem;
+`;
 
-const TopSection = () =>{
-    const cardsData = [
-        {
-            icon: BitcoinIcon,
-            increase: 0.25,
-            price:'$40,291',
-            name:'Bitcoin - BTC'
-        },
-        {
-            icon: EthereumIcon,
-            increase: 0.25,
-            price:'$18,291',
-            name:'Ethereum - ETH',
-        },        {
-            icon: LitecoinIcon,
-            increase: 0.25,
-            price:'$8,291',
-            name:'Litecoin - ITL'
-        },        {
-            icon: CardanoIcon,
-            increase: -2.05,
-            price:'$3,291',
-            name:'Cardano - ADA'
-        },
-    ]
+const TopSection = () => {
+  const [coinHistory, setCoinHistory] = useState(null);
+  const [activeCoin, setActiveCoin] = useState("");
+  const [cardsData, setCardsData] = useState([
+    {
+      icon: BitcoinIcon,
+      increase: null,
+      price: null,
+      name: "Bitcoin",
+      short: "BTC",
+      coin: "bitcoin",
+    },
+    {
+      icon: EthereumIcon,
+      increase: null,
+      price: null,
+      name: "Ethereum",
+      short: "ETH",
+      coin: "ethereum",
+    },
+    {
+      icon: LitecoinIcon,
+      increase: null,
+      price: null,
+      name: "Litecoin",
+      short: "ITL",
+      coin: "litecoin",
+    },
+    {
+      icon: CardanoIcon,
+      increase: null,
+      price: null,
+      name: "Cardano",
+      short: "ADA",
+      coin: "cardano",
+    },
+  ]);
 
-    return(
-        <Container>
-            <LeftWrap>
-                {
-                    cardsData.map((item) =>{
-                        return(
-                            <Card key={item.name}>
-                                <Icons color={item.increase < 0 ? 'orange': 'rgb(45, 225, 45)'}>
-                                <Image src={item.icon} alt={item.name} />
-                                <div>
-                                    {item.increase > 0 ? <AiFillCaretUp /> : <AiFillCaretDown /> }
-                                     {item.increase > 0 && '+'}{item.increase}%
-                                </div>
-                                </Icons>
-                                <h3>{item.price}</h3>
-                                <Text>{item.name}</Text>
-                            </Card>
-                        )
-                    })
-                }
-            </LeftWrap>
-            <RightWrap>
-                <Chart />
-            </RightWrap>
-        </Container>
-    )
-}
+  const fetchData = async (coin, short) => {
+    try {
+      const response = await axios.get(
+        `https://api.coincap.io/v2/assets/${coin}/history?interval=m5`
+      );
+      const data = response.data.data;
+      setActiveCoin(short);
+      const mapData = data.map((item) => {
+        const options = { day: "numeric", month: "short" };
+        return {
+          date: new Date(item.time).toLocaleDateString("en-US", options),
+          price: item.priceUsd,
+        };
+      });
+      setCoinHistory(mapData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchCoinPrices = async () => {
+    try {
+      const updatedCardsData = await Promise.all(
+        cardsData.map(async (item) => {
+          const response = await axios.get(
+            `https://api.coincap.io/v2/assets/${item.coin}`
+          );
+          const data = response.data.data;
+          let num = data.priceUsd >= 1 ? 0 : 2
+
+          return {
+            ...item,
+            increase: parseFloat(data.changePercent24Hr).toFixed(2),
+            price: new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD",
+              maximumFractionDigits: num,
+            }).format(data.priceUsd),
+          };
+        })
+      );
+
+      setCardsData(updatedCardsData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchData("bitcoin", "BTC");
+    fetchCoinPrices();
+  }, []);
+
+  return (
+    <Container>
+      <LeftWrap>
+        {cardsData.map((item) => {
+          return (
+            <Card
+              key={item.name}
+              onClick={() => fetchData(item.coin, item.short)}
+            >
+              <Icons color={item.increase < 0 ? "orange" : "rgb(45, 225, 45)"}>
+                <Image src={item.icon} alt={item.name} />
+                {item.increase !== null && (
+                  <div>
+                    {item.increase > 0 ? (
+                      <AiFillCaretUp />
+                    ) : (
+                      <AiFillCaretDown />
+                    )}
+                    {item.increase > 0 && "+"}
+                    {item.increase}%
+                  </div>
+                )}
+              </Icons>
+              {item.price === null ? <FaSpinner spin style={{ fontSize: "1.4rem", color: "#007bff" }} /> : <h3>{item.price}</h3>}
+              <Text>
+                {item.name} - {item.short}
+              </Text>
+            </Card>
+          );
+        })}
+      </LeftWrap>
+      <RightWrap>
+        <h3>{activeCoin} Prices</h3>
+        <Chart history={coinHistory} coin={activeCoin} />
+      </RightWrap>
+    </Container>
+  );
+};
 
 export default TopSection;
