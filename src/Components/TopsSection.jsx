@@ -19,7 +19,7 @@ gap: 1rem;
 `;
 
 const Card = styled.div`
-box-shadow: 0 3px 10px #a1a1a1;
+box-shadow: 0 0.5px 10px #a1a1a1;
 width: fit-content;
 min-width: 250px;
 cursor: pointer;
@@ -62,7 +62,7 @@ color: #b1b1b1;
 `
 
 const RightWrap = styled.div`
-box-shadow: 0 3px 10px #a1a1a1;
+box-shadow: 0 0.5px 10px #a1a1a1;
 border-radius: 15px;
 padding: 1rem;
 `
