@@ -42,10 +42,15 @@ margin:0;
 
 div{
 display: flex;
-gap: .75rem;
+align-items: canter;
+gap: .35rem;
 color: ${({color})=> color};
 font-size: .9rem;
 font-weight: 500;
+
+svg{
+margin-top: .2rem;
+}
 }
 ` 
 
