@@ -9,7 +9,7 @@ const Container = styled.section`
   display: grid;
   grid-template-columns: 50% 50%;
   gap: 1rem;
-  padding: 0 4rem 0 1rem;
+  padding: .7rem 4rem 0 1rem;
 `;
 
 const LeftWrap = styled.div`
@@ -50,8 +50,8 @@ font-weight: 500;
 ` 
 
 const Image = styled.img`
- width: 45px;
- height: 45px;
+ width: 40px;
+ height: 40px;
  margin:0 0 .7rem;
 `
 
@@ -115,7 +115,7 @@ const TopSection = () =>{
                 }
             </LeftWrap>
             <RightWrap>
-                <h2>Tis is a chart position</h2>
+                <h2>This is a chart position</h2>
             </RightWrap>
         </Container>
     )
