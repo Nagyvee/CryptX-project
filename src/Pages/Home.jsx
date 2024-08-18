@@ -6,8 +6,6 @@ import { useParams } from "react-router-dom";
 
 const Section = styled.div`
   display: flex;
-  height: 100vh;
-  overflow-y: hidden;
   margin: 0;
   padding: 0;
 

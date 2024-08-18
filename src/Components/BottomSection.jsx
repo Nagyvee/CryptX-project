@@ -229,7 +229,7 @@ const BottomSection = () => {
               >
                 <h3>Change</h3>
                 <p>
-                  {item.change >= 0 && "+"}
+                  {item.change > 0 && "+"}
                   {item.change}%
                 </p>
               </ChangeSec>
