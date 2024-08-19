@@ -4,6 +4,8 @@ import App from './App.jsx'
 import './index.css'
 import { ClerkProvider } from '@clerk/clerk-react'
 
+const PUBLISHABLE_KEY 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
