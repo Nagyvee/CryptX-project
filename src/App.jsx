@@ -25,7 +25,7 @@ function App() {
 
   return (
     <>
-    <Home />
+    <h1>hellow</h1>
     </>
   )
 }
