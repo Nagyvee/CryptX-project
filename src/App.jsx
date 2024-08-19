@@ -24,13 +24,3 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>,
 )
 
-/*function App() {
-
-  return (
-    <>
-    <Home />
-    </>
-  )
-}
-
-export default App
