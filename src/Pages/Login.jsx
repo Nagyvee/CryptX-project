@@ -1,19 +1,17 @@
 
 import React from 'react'
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import { SignInButton } from "@clerk/clerk-react";
 
 
 
 export default function Login() {
   return (
-    <header>
-      <SignedOut>
+    <div>
+    <h1>Sign in with</h1>
+
         <SignInButton />
-      </SignedOut>
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
-    </header>
+  
+    </div>
   );
 }
 
