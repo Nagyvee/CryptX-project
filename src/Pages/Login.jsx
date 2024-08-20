@@ -10,7 +10,7 @@ export default function Login() {
     <h1>Sign in with</h1>
 
         <SignInButton />
-        <h1>sign </h1>
+  
   
     </div>
   );
