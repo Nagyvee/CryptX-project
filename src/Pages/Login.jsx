@@ -10,7 +10,9 @@ export default function Login() {
       <SignedOut>
         <SignInButton />
       </SignedOut>
-      
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
     </header>
   );
 }
