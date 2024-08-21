@@ -11,7 +11,7 @@ import {
   FiSettings,
   FiLogOut,
 } from "react-icons/fi";
-import { UserButton } from '@clerk/clerk-react';
+import { SignOutButton, SignedOut } from '@clerk/clerk-react';
 
 const SidebarContainer = styled.div`
   width: 180px;
@@ -175,10 +175,12 @@ const Sidebar = () => {
 
           <div>
       <NavItem onClick={toggleSidebar}>
-        <FiLogOut />
-        <span>Logout</span>
+        {/* <FiLogOut /> */}
+        {/* <span>Logout</span>
+       */}
+      <SignedOutButton />
       </NavItem>
-      <UserButton />
+      {/* <UserButton /> */}
     </div>
         </NavList>
       </SidebarContainer>

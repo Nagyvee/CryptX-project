@@ -1,7 +1,7 @@
 
 import React from 'react'
 import styled from 'styled-components'
-import { SignIn } from "@clerk/clerk-react";
+import { SignUp } from "@clerk/clerk-react";
 
 
 const Container = styled.section`
@@ -12,10 +12,10 @@ justify-content: center;
 `
 
 
-export default function Login() {
+export default function Signup() {
   return (
     <Container>
-      <SignIn signUpUrl='/signup'/>
+      <SignUp signInUrl='/login'/>
     </Container>
   );
 }

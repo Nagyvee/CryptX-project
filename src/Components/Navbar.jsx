@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import profileIcon from "../assets/profile.png";
 import { FiBell, FiHelpCircle, FiChevronDown, FiSearch } from "react-icons/fi";
+import { useUser } from "@clerk/clerk-react";
 
 const NavContainer = styled.nav`
   width: 100%;
@@ -94,22 +95,30 @@ const SearchWrap = styled.div`
 `;
 
 const Navbar = () => {
+  console.log(useUser())
+  const user = useUser();
+  console.log('user name: ', user.fullName)
   return (
     <NavContainer>
       <SearchWrap>
         <Input type="text" placeholder="Search type of keys" />
         <FiSearch />
-      </SearchWrap>
+      </SearchWrap> 
       <Profile>
         <Icons>
           <FiBell />
           <FiHelpCircle />
         </Icons>
         <ImageContainer>
-          <Image src={profileIcon} alt="profile image" />
+          <Image src={user.isLoaded? user?.user?.imageUrl : profileIcon } alt="profile image" />
           <div>
-            <Text>Nigel Vee</Text>
-            <Small>@nigelvee</Small>
+
+
+            <Text>{user.isLoaded && (user.user.fullName ? user.user.fullName: user.user.primaryEmailAddress.emailAddress )}</Text>
+
+
+            <Text>{!user.isLoaded &&'Loading..'}</Text>
+            {user.isLoaded && user.user.firstName && <Small> @ {user.user.firstName} </Small>}
           </div>
           <FiChevronDown />
         </ImageContainer>
