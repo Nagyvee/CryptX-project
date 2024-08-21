@@ -9,7 +9,7 @@ export default function Login() {
     <div>
     <h1>Sign in with</h1>
 
-        <SignInButton />
+        <SignInButton mode="modal" redirectUrl="/Home" />
   
   
     </div>
