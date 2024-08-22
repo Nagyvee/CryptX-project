@@ -11,7 +11,7 @@ import {
   FiSettings,
   FiLogOut,
 } from "react-icons/fi";
-import { SignOutButton, SignedOut } from '@clerk/clerk-react';
+import { SignOutButton, SignedOut, useClerk } from '@clerk/clerk-react';
 
 const SidebarContainer = styled.div`
   width: 180px;
@@ -70,6 +70,11 @@ const NavList = styled.ul`
      height: 7.5px;
      background-color: #5a67d8;
      border-radius: 50%;
+     }
+
+     .logout{
+        color: red;
+        width: 200px;
      }
 }
 `;
@@ -133,6 +138,29 @@ const Sidebar = () => {
     setIsOpen(!isOpen);
   };
 
+
+  const LogoutUser = () => {
+    const clerk = useClerk();
+
+    const handleLogout = async () =>{
+      try {
+        await clerk.signOut();
+        console.log('Logged out')
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    return(
+
+      <NavItem onClick={handleLogout}>
+        <FiLogOut /> 
+        <span>Logout</span>
+      </NavItem>
+    )
+
+  }
+
   return (
     <>
       <ToggleButton onClick={toggleSidebar}>
@@ -172,14 +200,9 @@ const Sidebar = () => {
             <FiSettings />
             <span>Setting</span>
           </NavItem>
+          <LogoutUser />
 
           <div>
-      <NavItem onClick={toggleSidebar}>
-        {/* <FiLogOut /> */}
-        {/* <span>Logout</span>
-       */}
-      <SignedOutButton />
-      </NavItem>
       {/* <UserButton /> */}
     </div>
         </NavList>
