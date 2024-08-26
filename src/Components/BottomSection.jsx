@@ -4,7 +4,7 @@ import EthereunLine from "../assets/Ethereum-line.png";
 import BitcoinLine from "../assets/Bitcoin-line.png";
 import LitecoinLine from "../assets/litecoin-line.png";
 import LiteIcon from "../assets/lite-icon.png";
-import BitIcon from "../assets/bit-icon.png";
+import BitIcon from "../assets/Bit-icon.png";
 import EthIcon from "../assets/eth-icon.png";
 import CardIcon from "../assets/cord-icon.png";
 import CardanoLine from "../assets/cardano-line.png";
