@@ -1,11 +1,10 @@
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import './App.css';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
 import { useAuth } from "@clerk/clerk-react";
-
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -13,13 +12,13 @@ function App() {
   console.log('Is Signed: ',isSignedIn)
 
   useEffect(() => {
-     if (isSignedIn) {
-         if (location.pathname === "/login" || location.pathname === "/signup"){
+     if (isSignedIn && location.pathname !== '/'){
         navigate("/");
-         }
-    }else{
+    }
+    if(!isSignedIn && location.pathname === '/'){
       navigate("/login");
     }
+    if(!isSignedIn && location.pathname === '/signup') return;
   
 
   }, [isSignedIn, location.pathname]);
@@ -27,9 +26,9 @@ function App() {
   return (
     <>
       <Routes>
-      <Route path="/signup" element={<Signup />}/>
-      <Route path="/login" element={<Login />}/>
-      <Route path='/' element={<Home/>}/>
+      <Route path="/signup" element={ !isSignedIn ? <Signup /> : <Navigate to='/' />}/>
+      <Route path="/login" element={!isSignedIn ? <Login /> : <Navigate to='/' />}/>
+      <Route path='/' element={isSignedIn ? <Home/> : <Navigate to='/login' />}/>
       </Routes>
 
     </>

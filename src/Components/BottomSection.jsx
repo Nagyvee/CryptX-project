@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import EthereumIcon from "../assets/Ethereum-icon.svg";
+import { useState, useEffect } from "react";
 import EthereunLine from "../assets/Ethereum-line.png";
 import BitcoinLine from "../assets/Bitcoin-line.png";
 import LitecoinLine from "../assets/litecoin-line.png";
@@ -8,17 +8,17 @@ import BitIcon from "../assets/bit-icon.png";
 import EthIcon from "../assets/eth-icon.png";
 import CardIcon from "../assets/cord-icon.png";
 import CardanoLine from "../assets/cardano-line.png";
-import { FaBitcoin, FaEthereum } from "react-icons/fa";
 import receivedIcon from "../assets/received_icon.png";
 import BuyIcon from "../assets/buy-icon.png";
+import axios from 'axios';
 
 const Container = styled.section`
   display: flex;
   gap: 4rem;
   padding: 0 4rem 0 0;
 
-.prices{
-   width: 80px;
+  .prices {
+    width: 80px;
   }
 `;
 
@@ -65,19 +65,19 @@ const IconsSec = styled.div`
 `;
 
 const IconPic = styled.div`
-    width: 45px;
-    height: 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 3px solid #b1b1b1;
-    border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #b1b1b1;
+  border-radius: 50%;
 
-    img{
+  img {
     width: 35px;
     border-radius: 50%;
-    }
-`
+  }
+`;
 
 const ChangeSec = styled.div`
   display: flex;
@@ -93,7 +93,7 @@ const ChangeSec = styled.div`
   }
 
   h4 {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     display: flex;
     align-items: right;
     justify-content: flex-end;
@@ -109,8 +109,8 @@ const ChangeSec = styled.div`
   }
 `;
 
-Image = styled.img`
-  width: 200px;
+const Image = styled.img`
+  width: 185px;
   height: 40px;
 `;
 
@@ -157,7 +157,7 @@ const RightIcon = styled.img`
 `;
 
 const BottomSection = () => {
-  const coinsArray = [
+  const [coinsArray, setCoinsArray] = useState([
     {
       id: 1,
       name: "Ethereum",
@@ -167,8 +167,8 @@ const BottomSection = () => {
       change: +14.02,
       price: "39,786",
       transIcon: receivedIcon,
-      time: '19:30',
-      TransPrice: '24,102'
+      time: "19:30",
+      TransPrice: "24,102",
     },
     {
       id: 2,
@@ -177,10 +177,10 @@ const BottomSection = () => {
       icon: BitIcon,
       line: BitcoinLine,
       change: +4.02,
-      price: "21,786 ",
+      price: "21,786",
       transIcon: BuyIcon,
-      time: '14:32',
-      TransPrice: '4,157'
+      time: "14:32",
+      TransPrice: "4,157",
     },
     {
       id: 3,
@@ -191,8 +191,8 @@ const BottomSection = () => {
       change: -4.02,
       price: "9,786",
       transIcon: BuyIcon,
-       time: '13:50',
-      TransPrice: '64, 787'
+      time: "13:50",
+      TransPrice: "64,787",
     },
     {
       id: 4,
@@ -203,10 +203,47 @@ const BottomSection = () => {
       change: +0.02,
       price: "4,786",
       transIcon: BuyIcon,
-       time: '09:38',
-      TransPrice: "14,265"
+      time: "09:38",
+      TransPrice: "14,265",
     },
-  ];
+  ]);
+
+  const fetchCoinPrices = async () => {
+    try {
+      const updatedCardsData = await Promise.all(
+        coinsArray.map(async (item) => {
+          const response = await axios.get(
+            `https://api.coincap.io/v2/assets/${item.name.toLowerCase()}`
+          );
+          const data = response.data.data;
+          let num = data.priceUsd >= 1 ? 0 : 2;
+
+          return {
+            ...item,
+            change: parseFloat(data.changePercent24Hr).toFixed(2),
+            price: new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD",
+              maximumFractionDigits: num,
+            }).format(data.priceUsd),
+          };
+        })
+      );
+
+      setCoinsArray(updatedCardsData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchCoinPrices(); // Fetch initial data on mount
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(fetchCoinPrices, 1000 * 60); // Update every minute
+    return () => clearInterval(interval); // Cleanup on component unmount
+  }, [coinsArray]);
 
   return (
     <Container>
@@ -217,7 +254,7 @@ const BottomSection = () => {
             <StatsContainer key={item.id}>
               <IconsSec>
                 <IconPic>
-                    <img src={item.icon}  />
+                  <img src={item.icon} />
                 </IconPic>
                 <div className="text">
                   <h3>{item.name}</h3>
@@ -225,7 +262,7 @@ const BottomSection = () => {
                 </div>
               </IconsSec>
               <ChangeSec
-                color={item.change < 0 ? "orange" : "rgb(45, 225, 45) "}
+                color={item.change < 0 ? "orange" : "rgb(45, 225, 45)"}
               >
                 <h3>Change</h3>
                 <p>
@@ -246,12 +283,12 @@ const BottomSection = () => {
         <Heading>Transactions </Heading>
         {coinsArray.map((item) => {
           return (
-            <RightItem>
+            <RightItem key={item.id}>
               <IconsSec>
                 <RightIcon src={item.transIcon} />
                 <div className="text">
                   <h3>{item.name}</h3>
-                  <h4>{item.transIcon === BuyIcon? 'Buy' : 'Received'}</h4>
+                  <h4>{item.transIcon === BuyIcon ? "Buy" : "Received"}</h4>
                 </div>
               </IconsSec>
 

@@ -11,11 +11,32 @@ import {
   LineElement,
   Title,
 } from "chart.js";
+import processingLoader from "./ProcessingLoader";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
     width: '100%',
     backgroundColor: '#f5f5f5',
 `;
+
+const Loader = styled.div`
+    width: 100%;
+    height: 100%;
+    color: #999;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+
+    p{
+    font-size: .85rem;
+    font-weight: 600;
+    font-style: italic;
+    }
+`
 
 ChartJS.register(
   CategoryScale,
@@ -31,7 +52,8 @@ const Chart = ({ history, coin }) => {
   const [data, setData] = useState(null);
   useEffect(() => {
     if (history !== null && history.length > 0) {
-        let color = coin === 'BTC'? 'orange' : coin === 'ADA' ? 'green': "#4e73df";  
+      let color =
+        coin === "BTC" ? "orange" : coin === "ADA" ? "green" : "#4e73df";
       setData({
         labels: history.map((item) => item.date),
         datasets: [
@@ -81,7 +103,10 @@ const Chart = ({ history, coin }) => {
   return (
     <Container>
       {data === null ? (
-        <div>Loading...</div>
+        <Loader>
+          <FontAwesomeIcon icon={faSpinner} size="4x" spin />
+          <p>Loading coin Data. Please wait...</p>
+        </Loader>
       ) : (
         <Line options={options} data={data} />
       )}

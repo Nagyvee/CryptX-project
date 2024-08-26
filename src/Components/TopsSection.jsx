@@ -4,6 +4,8 @@ import LitecoinIcon from "../assets/litecoin-icon.svg";
 import EthereumIcon from "../assets/Ethereum-icon.svg";
 import CardanoIcon from "../assets/cardano-icon.svg";
 import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FaSpinner } from "react-icons/fa";
 import Chart from "./Chart";
 import { useState, useEffect } from "react";
@@ -157,7 +159,7 @@ const TopSection = () => {
       );
 
       setCardsData(updatedCardsData);
-    } catch (err) {
+    } catch (err){
       console.log(err);
     }
   };
@@ -190,7 +192,7 @@ const TopSection = () => {
                   </div>
                 )}
               </Icons>
-              {item.price === null ? <FaSpinner spin style={{ fontSize: "1.4rem", color: "#007bff" }} /> : <h3>{item.price}</h3>}
+              {item.price === null ? <FontAwesomeIcon icon={faSpinner} size="2x" spin /> : <h3>{item.price}</h3>}
               <Text>
                 {item.name} - {item.short}
               </Text>
