@@ -1,6 +1,7 @@
 # Project Title
 
 **CryptX**: This project fetches financial data from a cryptocurrency API, displays a chart showing data trends over the last 6 months, and provides live updates every minute using Vite and React.
+
 **Project Live URL**: https://cryptx-app.onrender.com
 
 # Features
