@@ -6,7 +6,6 @@ import CardanoIcon from "../assets/cardano-icon.svg";
 import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { FaSpinner } from "react-icons/fa";
 import Chart from "./Chart";
 import { useState, useEffect } from "react";
 import axios from "axios";

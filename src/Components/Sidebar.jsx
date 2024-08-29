@@ -11,7 +11,7 @@ import {
   FiSettings,
   FiLogOut,
 } from "react-icons/fi";
-import { SignOutButton, SignedOut, useClerk } from '@clerk/clerk-react';
+import { SignedOut, useClerk } from '@clerk/clerk-react';
 
 const SidebarContainer = styled.div`
   width: 180px;

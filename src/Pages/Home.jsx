@@ -2,7 +2,6 @@ import Navbar from "../Components/Navbar";
 import Sidebar from "../Components/Sidebar";
 import MainSection from "../Components/MainSection";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
 
 const Section = styled.div`
   display: flex;

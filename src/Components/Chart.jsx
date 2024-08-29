@@ -11,7 +11,6 @@ import {
   LineElement,
   Title,
 } from "chart.js";
-import processingLoader from "./ProcessingLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
