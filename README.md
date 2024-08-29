@@ -1,8 +1,9 @@
-#Project Title
+# Project Title
 
 **CryptX**: This project fetches financial data from a cryptocurrency API, displays a chart showing data trends over the last 6 months, and provides live updates every minute using Vite and React.
+**Project Live URL**: https://cryptx-app.onrender.com
 
-#Features
+# Features
 
 **Data Fetching**: Retrieves historical and live data from a cryptocurrency API.
 
@@ -10,7 +11,7 @@
 
 **Live Data Updates**: Updates the chart and displays live data every minute.
 
-#Installation
+# Installation
 Prerequisites: Ensure you have Node.js and npm/yarn installed on your system.
 
 # Clone the repository
@@ -31,7 +32,7 @@ npm run dev
 # Build the project for production
 npm run build
 
-#Components
+# Components
 **Key Components:**
 
 **App.jsx**: Main component that orchestrates the fetching and rendering of data.
@@ -42,7 +43,7 @@ npm run build
 
 **Login.jsx and Signup.jsx**: Handle user login and signup functions using the react-client library.
 
-#Environment Variables
+# Environment Variables
 To start the project, you need to create a .env file with your React client key for user authentication. This is required as the routes are protected and accessible only by authenticated users.
 
 Example .env file:
@@ -50,7 +51,7 @@ Example .env file:
 makefile
 VITE_REACT_CLIENT_KEY=your_client_key_here
 
-#How the Project Works
+# How the Project Works
 
 **User Authentication:** Users must log in or register to access the '/' route. Authentication is required to use the app.
 
