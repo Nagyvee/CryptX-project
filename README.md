@@ -25,13 +25,17 @@ Running the Project: instructions on how to start the development server and vie
 npm run dev
 
 # Build the project
-npm run build\
+npm run build
 
 #Components
-Key Components:
+
+**Key Components:**
 
 **App.jsx**: Main component that orchestrates the fetching and rendering of data.
+
 **TopSection.jsx**: Handles getting data for past 6 months and rendering of the chart using Chart.js library.
+
 **BottomSection.jsx**: Manages the fetching and updating of live data every minute.
+
 **Login.jsx and Signup.jsx**: use react-client library to perform user login and signout functions.
 
