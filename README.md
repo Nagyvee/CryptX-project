@@ -42,7 +42,7 @@ npm run build
 
 **BottomSection.jsx**: Manages the fetching and updating of live data every minute.
 
-**Login.jsx and Signup.jsx**: Handle user login and signup functions using the react-client library.
+**Login.jsx and Signup.jsx**: Handle user login and signup functions using the @clerk/clerk-react library.
 
 # Environment Variables
 To start the project, you need to create a .env file with your React client key for user authentication. This is required as the routes are protected and accessible only by authenticated users.
@@ -50,7 +50,7 @@ To start the project, you need to create a .env file with your React client key 
 Example .env file:
 
 makefile
-VITE_REACT_CLIENT_KEY=your_client_key_here
+VITE_REACT_CLERK_API_KEY=your_client_key_here
 
 # How the Project Works
 
